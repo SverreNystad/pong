@@ -20,8 +20,8 @@ public class PongApp extends ApplicationAdapter {
 	private final float PADDLE_WIDTH = 20;
     private final float PADDLE_HEIGHT = 100;
     private final float BALL_RADIUS = 10;
-    private final float PADDLE_SPEED =300;
-    private final float BALL_SPEED = 200;
+    private final float PADDLE_SPEED = 300;
+    private final float BALL_SPEED = 250;
 
 	private PongAI pongAI;
 
@@ -100,9 +100,11 @@ public class PongApp extends ApplicationAdapter {
         // Check for ball collisions with paddles
         if (Intersector.overlaps(ball.getBounds(), paddleLeft.getBounds())) {
             ball.reverseVelocityX();
+            ball.setVelocity(ball.getVelocity().x * 1.1f, ball.getVelocity().y * 1.1f);
         }
         if (Intersector.overlaps(ball.getBounds(), paddleRight.getBounds())) {
             ball.reverseVelocityX();
+            ball.setVelocity(ball.getVelocity().x * 1.1f, ball.getVelocity().y * 1.1f);
         }
 
         // Check for ball collisions with top and bottom screen edges
