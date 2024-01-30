@@ -5,16 +5,18 @@ import com.badlogic.gdx.math.Rectangle;
 
 public class Paddle {
 
-    private Rectangle bounds; // To handle the position and collision
+    private Rectangle bounds;
     private float speed;
+    private float gameHeight;
     private final Texture COMPUTER = new Texture("Computer.png");
     private final Texture PLAYER = new Texture("Player.png");
     private Texture texture;
 
-    public Paddle(float x, float y, float width, float height, float speed, boolean isComputer) {
+    public Paddle(float x, float y, float width, float height, float speed, boolean isComputer, float gameHeight) {
         bounds = new Rectangle(x, y, width, height);
         this.speed = speed;
         this.texture = (isComputer) ? COMPUTER : PLAYER; 
+        this.gameHeight = gameHeight;
     }
 
     public void update(float delta, boolean moveUp) {
@@ -23,6 +25,13 @@ public class Paddle {
             bounds.y += speed * delta;
         } else {
             bounds.y -= speed * delta;
+        }
+
+        // Make sure the paddle doesn't go off screen
+        if (bounds.y < 0) {
+            bounds.y = 0;
+        } else if (bounds.y > gameHeight - bounds.height) {
+            bounds.y = gameHeight - bounds.height;
         }
     }
 
