@@ -17,11 +17,13 @@ public class PongApp extends ApplicationAdapter {
 	private SpriteBatch batch;
 	private Texture background;
 
-	final float PADDLE_WIDTH = 20;
-    final float PADDLE_HEIGHT = 100;
-    final float BALL_RADIUS = 10;
-    final float PADDLE_SPEED = 200;
-    final float BALL_SPEED = 200;
+	private final float PADDLE_WIDTH = 20;
+    private final float PADDLE_HEIGHT = 100;
+    private final float BALL_RADIUS = 10;
+    private final float PADDLE_SPEED = 200;
+    private final float BALL_SPEED = 200;
+
+	private PongAI pongAI;
 
     @Override
     public void create() {
@@ -30,13 +32,15 @@ public class PongApp extends ApplicationAdapter {
 		background = new Texture("Board.png");
 
         // Create the left and right paddles
-        paddleLeft = new Paddle(0, Gdx.graphics.getHeight() / 2 - PADDLE_HEIGHT / 2, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_SPEED, true);
-        paddleRight = new Paddle(Gdx.graphics.getWidth() - PADDLE_WIDTH, Gdx.graphics.getHeight() / 2 - PADDLE_HEIGHT / 2, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_SPEED, false);
+        paddleLeft = new Paddle(0, Gdx.graphics.getHeight() / 2 - PADDLE_HEIGHT / 2, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_SPEED, true, Gdx.graphics.getHeight());
+        paddleRight = new Paddle(Gdx.graphics.getWidth() - PADDLE_WIDTH, Gdx.graphics.getHeight() / 2 - PADDLE_HEIGHT / 2, PADDLE_WIDTH, PADDLE_HEIGHT, PADDLE_SPEED, false, Gdx.graphics.getHeight());
 
+		
         // Create the ball
         ball = new Ball(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2, BALL_RADIUS);
         ball.setVelocity(BALL_SPEED, BALL_SPEED);
-
+		
+		pongAI = new PongAI(ball, paddleLeft);
         // Initialize scores
         scoreLeft = 0;
         scoreRight = 0;
@@ -66,22 +70,22 @@ public class PongApp extends ApplicationAdapter {
     }
 
     private void update(float deltaTime) {
-        paddleLeft.update(deltaTime, Gdx.input.isTouched()); // Example control for the left paddle
-        paddleRight.update(deltaTime, false); // Replace with actual AI or second player control
-
+        pongAI.update(deltaTime); 
         ball.update(deltaTime);
 
         checkCollisions();
     }
 
     private void handleInput() {
-        // Handle input for paddles. This example uses touch input for the left paddle.
-
-
         if (Gdx.input.isTouched()) {
             paddleRight.setPosition(Gdx.input.getY() - PADDLE_HEIGHT / 2);
         }
-        // For the right paddle, you could add AI or second player controls here.
+        // Make the paddle stay on the screen
+        if (paddleRight.getBounds().y < 0) {
+            paddleRight.setPosition(0);
+        } else if (paddleRight.getBounds().y > Gdx.graphics.getHeight() - PADDLE_HEIGHT) {
+            paddleRight.setPosition(Gdx.graphics.getHeight() - PADDLE_HEIGHT);
+        }
     }
 
     private void checkCollisions() {
@@ -111,5 +115,16 @@ public class PongApp extends ApplicationAdapter {
     private void resetBall() {
         ball.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         ball.setVelocity(BALL_SPEED, BALL_SPEED);
+
+        // Add speed to the ball
+        if (ball.getVelocity().x < 0) {
+            ball.setVelocity(ball.getVelocity().x - 50, ball.getVelocity().y);
+        } else {
+            ball.setVelocity(ball.getVelocity().x + 50, ball.getVelocity().y);
+        }
+    }
+
+    private boolean isGameOver() {
+        return scoreLeft >= 21 || scoreRight >= 21;
     }
 }
