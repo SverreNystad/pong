@@ -20,7 +20,7 @@ public class PongApp extends ApplicationAdapter {
 	private final float PADDLE_WIDTH = 20;
     private final float PADDLE_HEIGHT = 100;
     private final float BALL_RADIUS = 10;
-    private final float PADDLE_SPEED = 200;
+    private final float PADDLE_SPEED =300;
     private final float BALL_SPEED = 200;
 
 	private PongAI pongAI;
@@ -48,12 +48,13 @@ public class PongApp extends ApplicationAdapter {
 
     @Override
     public void render() {
-        ScreenUtils.clear(0, 0, 0, 1); // Clear the screen
+        ScreenUtils.clear(0, 0, 0, 1);
         // Draw the background
 		batch.begin();
 		batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		batch.end();
-		handleInput(); // Handle user input
+
+		handleInput();
 
         update(Gdx.graphics.getDeltaTime()); // Update the game objects
 
@@ -116,12 +117,6 @@ public class PongApp extends ApplicationAdapter {
         ball.setPosition(Gdx.graphics.getWidth() / 2, Gdx.graphics.getHeight() / 2);
         ball.setVelocity(BALL_SPEED, BALL_SPEED);
 
-        // Add speed to the ball
-        if (ball.getVelocity().x < 0) {
-            ball.setVelocity(ball.getVelocity().x - 50, ball.getVelocity().y);
-        } else {
-            ball.setVelocity(ball.getVelocity().x + 50, ball.getVelocity().y);
-        }
     }
 
     private boolean isGameOver() {
