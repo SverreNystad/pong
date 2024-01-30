@@ -11,7 +11,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class PongApp extends ApplicationAdapter {
 	private Paddle paddleLeft, paddleRight;
     private Ball ball;
-    private BitmapFont scoreFont;
+    private BitmapFont scoreFont, gameOverFont;
     private int scoreLeft, scoreRight;
 
 	private SpriteBatch batch;
@@ -29,6 +29,7 @@ public class PongApp extends ApplicationAdapter {
     public void create() {
         batch = new SpriteBatch();
         scoreFont = new BitmapFont();
+        gameOverFont = new BitmapFont();
 		background = new Texture("Board.png");
 
         // Create the left and right paddles
@@ -52,8 +53,14 @@ public class PongApp extends ApplicationAdapter {
         // Draw the background
 		batch.begin();
 		batch.draw(background, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
-		batch.end();
+        batch.end();
 
+        if (isGameOver()) {
+		    batch.begin();
+            gameOverFont.draw(batch, "Game Over", Gdx.graphics.getWidth() / 2 - 50, Gdx.graphics.getHeight() / 2);
+            batch.end();
+            return;
+        }
 		handleInput();
 
         update(Gdx.graphics.getDeltaTime()); // Update the game objects
@@ -120,6 +127,6 @@ public class PongApp extends ApplicationAdapter {
     }
 
     private boolean isGameOver() {
-        return scoreLeft >= 21 || scoreRight >= 21;
+        return scoreLeft >= 5 || scoreRight >= 5;
     }
 }
