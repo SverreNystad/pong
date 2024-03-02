@@ -11,8 +11,11 @@
 
 This is a simple game of pong created using the LibGDX framework.
 
-![Gameplay](docs/images/gameplay.png)
-![Game over](docs/images/gameover.png)
+<div align="center">
+  <img src="docs/images/gameplay.png" alt="Pong" width="200" height="200">
+    <img src="docs/images/gameover.png" alt="Pong" width="200" height="200">
+</div>
+
 
 ## Installation and Setup
 
@@ -77,9 +80,9 @@ gradlew android:run
 ## Acknowledgements
 All the Asset are created by Esoe B.Studios. 
 
-YouTube: https://www.youtube.com/channel/UCCsuCNggL9EanhfPgvjyGEA
-Github: https://www.github.com/myebstudios
-Twitter: https://www.twitter.com/myebstudios
-Facebook: https://www.facebook.com/myebstudios
+* **YouTube:** https://www.youtube.com/channel/UCCsuCNggL9EanhfPgvjyGEA
+* **Github:** https://www.github.com/myebstudios
+* **Twitter:** https://www.twitter.com/myebstudios
+* **Facebook:** https://www.facebook.com/myebstudios
 
 Thanks for downloading this asset, Enjoy!! ✌️👨🏽
