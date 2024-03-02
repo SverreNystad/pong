@@ -8,6 +8,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+/**
+ * The main entry point for the Pong game.
+ * This class is responsible for creating the game objects and rendering them to the screen.
+ * It is also responsible for handling user input and updating the game state.
+ */
 public class PongApp extends ApplicationAdapter {
 	private Paddle paddleLeft, paddleRight;
     private Ball ball;
@@ -63,7 +68,7 @@ public class PongApp extends ApplicationAdapter {
         }
 		handleInput();
 
-        update(Gdx.graphics.getDeltaTime()); // Update the game objects
+        update(Gdx.graphics.getDeltaTime());
 
         // Start drawing
         batch.begin();
