@@ -11,6 +11,8 @@
 
 This is a simple game of pong created using the LibGDX framework.
 
+![Gameplay](docs/images/gameplay.png)
+![Game over](docs/images/gameover.png)
 
 ## Installation and Setup
 
